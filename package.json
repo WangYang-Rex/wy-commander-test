@@ -1,0 +1,17 @@
+{
+  "name": "wy-commander-test",
+  "version": "1.0.1",
+  "description": "test commander",
+  "main": "index.js",
+  "scripts": {
+    "test": "wy"
+  },
+  "author": "wangyang",
+  "license": "ISC",
+  "dependencies": {
+    "commander": "^2.9.0"
+  },
+  "bin": {
+    "wy": "./bin/wy"
+  }
+}
