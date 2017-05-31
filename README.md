@@ -14,3 +14,4 @@ npm publish
 npm install -g wy-commander-test
 wy -h
 ```
+

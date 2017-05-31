@@ -1,14 +1,52 @@
-var program = require('commander');
+'use strict';
+const program = require('commander');
+const path = require('path');
+const inquirer = require('inquirer');
+
+const pkg = require('../package.json');
+const util = require('./util')
+
 program
   .allowUnknownOption()
-  .option('-d, --date', 'display current time')
-  .option('-l, --language <lang>', 'which language are u good at')
-  .option('-b, --database [db]', 'which database are u good at', 'MySQL')
+  .version(pkg.version)
+
+program
+  .command('init <type>')
+  .description(pkg.description)
+  .action(function(type, command) {
+    console.log('\nWelcome to nowa ' + type + ' generator!\n');
+    inquirer.prompt(util.prompt(type)).then(function (answers) {
+        var sourceDir = path.join(__dirname, 'templates', type);
+        var targetDir = process.cwd();
+        answers = answersFormat(answers)
+        util.makeFiles(sourceDir, targetDir, answers, filter);
+    });
+  })
+
+program
   .parse(process.argv);
 
-if (program.language) {
-    console.log('language: U are good at `' + program.language + '`')
+
+// answer for mod
+var answersFormat = function(answers) {
+    answers.name = answers.name.toLowerCase();
+    answers.Name = answers.name.replace(/[\W_]+(.)/g, function(p, p1) {
+        return p1.toUpperCase();
+    }).replace(/^./, function(p) {
+        return p.toUpperCase();
+    });
+    return answers;
 }
-if (program.database) {
-    console.log('db: U are good at `' + program.database + '`')
+
+// filter out files
+var source = 'src/pages/__name__/Page__Name__.styl';
+var data = {
+  store: true
 }
+var filter = function(source, data) {
+    if (!data.store) {
+        return !/(actions|store)\.js$/.test(source);
+    }
+};
+
+console.log(filter(source, data))
