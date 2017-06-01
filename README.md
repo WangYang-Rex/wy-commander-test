@@ -1,5 +1,6 @@
 # wy-commander-test
 react + reFlux + webpack脚手架
+https://github.com/WangYang-Rex/wy-commander-test
 
 ## 安装
 ```js
