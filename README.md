@@ -1,17 +1,25 @@
 # wy-commander-test
-commander.js example
+react + reFlux + webpack脚手架
 
-## test  commander
+## 安装
 ```js
-node index.js -h
+cnpm install -g wy-commander-test
 ```
-## update this npm package
+## 初始化项目
 ```js
-npm publish
+wy init proj
+cnpm install
 ```
-## use this npm package
+
+## 初始化页面
 ```js
-npm install -g wy-commander-test
-wy -h
+wy init page
 ```
+
+## 初始化模块
+```js
+wy init mod
+```
+## 后续
+项目打包和启本地服务正在开发中
 

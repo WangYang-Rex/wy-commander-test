@@ -18,8 +18,8 @@ program
     inquirer.prompt(util.prompt(type)).then(function (answers) {
         var sourceDir = path.join(__dirname, 'templates', type);
         var targetDir = process.cwd();
-        answers = answersFormat(answers)
-        util.makeFiles(sourceDir, targetDir, answers, filter);
+        answers = util.answersFormat(answers)
+        util.makeFiles(sourceDir, targetDir, answers, util.filter(type));
     });
   })
 
@@ -27,26 +27,3 @@ program
   .parse(process.argv);
 
 
-// answer for mod
-var answersFormat = function(answers) {
-    answers.name = answers.name.toLowerCase();
-    answers.Name = answers.name.replace(/[\W_]+(.)/g, function(p, p1) {
-        return p1.toUpperCase();
-    }).replace(/^./, function(p) {
-        return p.toUpperCase();
-    });
-    return answers;
-}
-
-// filter out files
-var source = 'src/pages/__name__/Page__Name__.styl';
-var data = {
-  store: true
-}
-var filter = function(source, data) {
-    if (!data.store) {
-        return !/(actions|store)\.js$/.test(source);
-    }
-};
-
-console.log(filter(source, data))

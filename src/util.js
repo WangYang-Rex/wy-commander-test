@@ -17,7 +17,7 @@ var util = {
             if(filter && !filter(source, data)) {
                 return
             }
-            console.log(source)
+            // console.log(source)
 
             // 真实文件路径
             var src = source;
@@ -41,7 +41,7 @@ var util = {
             }
         })
     },
-
+    //inquirer
     prompt: function (type) {
         if(type == 'mod') {
             return [
@@ -105,12 +105,32 @@ var util = {
                 }
             ]
         }
+    },
+    //过滤器
+    filter: function (type) {
+        if(type == 'page') {
+            return function(source, data) {
+                if (!data.store) {
+                    return !/(actions|store)\.js$/.test(source);
+                }
+                return true
+            };
+        }
+    },
+    //对inquirer的结果进行转换
+    answersFormat: function(answers) {
+        answers.name = answers.name.toLowerCase();
+        answers.Name = answers.name.replace(/[\W_]+(.)/g, function(p, p1) {
+            return p1.toUpperCase();
+        }).replace(/^./, function(p) {
+            return p.toUpperCase();
+        });
+        return answers;
     }
 }
 
 // 写文件，把目标文件写入指定目录
 function writeFile(source, target, data) {
-    console.log(data);
   try {
     console.log('Generate file ' + path.relative(process.cwd(), target));
     var tpl = fs.readFileSync(source);
