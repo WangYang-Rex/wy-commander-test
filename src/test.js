@@ -7,6 +7,7 @@ var mkdirp = require('mkdirp');
 
 var sourceDir = path.join(__dirname, "templates/mod")
 var targetDir = "";
+
 var data = {
     Name: 'Test',
     name: "test",
